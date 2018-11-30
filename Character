@@ -11,24 +11,30 @@ public abstract class Character : MonoBehaviour {
     private Animator animator;
 
     // Use this for initialization
-    void Start () {
+    protected virtual void Start() {
         animator = GetComponent<Animator>();
-	}
-	
-	// Update is called once per frame
-	protected virtual void Update () {
+    }
+
+    // Update is called once per frame
+    protected virtual void Update() {
         Move();
 
-        AnimateMovement(direction);
+        if (direction.x != 0 || direction.y != 0)
+        {
+            AnimateMovement(direction);
+        }else animator.SetLayerWeight(1, 0);
     }
 
     public void Move()
     {
         transform.Translate(direction * moveSpeed * Time.deltaTime);
+        AnimateMovement(direction);
     }
 
     public void AnimateMovement(Vector2 direction)
     {
+        animator.SetLayerWeight(1, 1);
+
         animator.SetFloat("x", direction.x);
         animator.SetFloat("y", direction.y);
     }
