@@ -1,0 +1,35 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Stat : MonoBehaviour {
+    
+    public int maxHealth { get; set; }
+    
+    private int currentHealth;
+    public int MyCurrentHealth
+    {
+        get
+        {
+            return currentHealth;
+        }
+        set
+        {
+            if(value > maxHealth)
+            {
+                currentHealth = maxHealth;
+            }
+            currentHealth = value;
+        }
+    }
+
+	// Use this for initialization
+	void Start () {
+        currentHealth = maxHealth;
+	}
+	
+	// Update is called once per frame
+	void Update () {
+		
+	}
+}
