@@ -1,35 +1,58 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Stat : MonoBehaviour {
+    [SerializeField]
+    private Slider healthBar;
+
+    [SerializeField]
+    private Text statValue;
     
-    public int maxHealth { get; set; }
+    public float myMaxValue { get; set; }
     
-    private int currentHealth;
-    public int MyCurrentHealth
+    private float currentValue;
+
+    public float myCurrentValue
     {
         get
         {
-            return currentHealth;
+            return currentValue;
         }
         set
         {
-            if(value > maxHealth)
+            if(value > myMaxValue)
             {
-                currentHealth = maxHealth;
+                currentValue = myMaxValue;
             }
-            currentHealth = value;
+            else if (value < 0)
+            {
+                currentValue = 0;
+            }
+            else
+            {
+                currentValue = value;
+            }
+
+            statValue.text ="HP: " + myCurrentValue + "/" + myMaxValue;
         }
     }
 
 	// Use this for initialization
 	void Start () {
-        currentHealth = maxHealth;
+        
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+        healthBar.maxValue = myMaxValue;
+        healthBar.value = myCurrentValue;
 	}
+
+    public void Initialize(float currentValue, float maxValue)
+    {
+        myMaxValue = maxValue;
+        myCurrentValue = currentValue;
+    }
 }
