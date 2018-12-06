@@ -3,17 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : Character {
-    
+    [SerializeField]
+    private Stat health;
 
-    
+    [SerializeField]
+    private float initHealth;
 
 	// Use this for initialization
 	protected override void Start () {
+        health.Initialize(initHealth, initHealth);
         base.Start();
 	}
 	
 	// Update is called once per frame
 	protected override void Update () {
+        
         GetInput();
         base.Update();
 	}
@@ -23,6 +27,7 @@ public class PlayerController : Character {
     private void GetInput()
     {
         direction = Vector2.zero;
+
         if(Input.GetAxisRaw("Horizontal") > 0.5f)
         {
             direction += Vector2.right;
